@@ -2,22 +2,33 @@
 <html>
 <head>
     <title>Property Listings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 </head>
 <body>
-    <h1>Property Listings</h1>
-    <ul>
-        {% for listing in listings %}
-        <li>
-            <strong>{{ listing[1] }}</strong> - {{ listing[4] }}<br>
-            {{ listing[2] }}<br>
-            Price: ${{ listing[3] }}
-            <form action="{{ url_for('delete_listing', listing_id=listing[0]) }}" method="post">
-                <button type="submit">Delete</button>
-            </form>
-            <a href="{{ url_for('edit_listing', listing_id=listing[0]) }}">Edit</a>
-        </li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('create_listing') }}">Create New Listing</a>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Property Listings</h1>
+            <ul class="box">
+                {% for listing in listings %}
+                <li class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ listing[1] }}</p>
+                        <p class="subtitle is-6">{{ listing[4] }}</p>
+                        <p>{{ listing[2] }}</p>
+                        <p>Price: ${{ listing[3] }}</p>
+                    </div>
+                    <div class="media-right">
+                        <form action="{{ url_for('delete_listing', listing_id=listing[0]) }}" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <button class="button is-danger" type="submit">Delete</button>
+                        </form>
+                        <a class="button is-primary" href="{{ url_for('edit_listing', listing_id=listing[0]) }}">Edit Listing</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <a class="button is-primary" href="{{ url_for('create_listing') }}">Create New Listing</a>
+        </div>
+    </section>
 </body>
 </html>
