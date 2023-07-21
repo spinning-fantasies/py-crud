@@ -14,5 +14,12 @@ cursor.execute('''
     )
 ''')
 
+cursor.execute('''
+    INSERT INTO listings (title, description, price, location)
+    VALUES ('Cozy Apartment', 'A beautiful apartment in the heart of the city.', 100.0, 'City Center'),
+           ('Spacious Villa', 'A luxurious villa with a stunning view.', 250.0, 'Mountain Resort'),
+           ('Beach House', 'A charming beach house just steps away from the ocean.', 150.0, 'Beachside')
+''')
+
 connection.commit()
 connection.close()
