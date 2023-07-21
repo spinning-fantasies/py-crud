@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backoffice - Deleted Listings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Backoffice - Deleted Listings</h1>
+            <ul class="box">
+                {% for listing in listings %}
+                <li class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ listing['title'] }}</p>
+                        <p class="subtitle is-6">{{ listing['location'] }}</p>
+                        <p>{{ listing['description'] }}</p>
+                        <p>Price: ${{ listing['price'] }}</p>
+                        <p><strong>Deleted: {{ listing['deleted'] }}</strong></p>
+                    </div>
+                    <div class="media-right">
+                        <form action="{{ url_for('restore_listing', listing_id=listing['id']) }}" method="post">
+                            <button class="button is-success" type="submit">Restore</button>
+                        </form>
+                        <form action="{{ url_for('permanently_delete_listing', listing_id=listing['id']) }}" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <button class="button is-danger" type="submit">Permanently Delete</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <a class="button is-primary" href="{{ url_for('index') }}">Back to Home</a>
+        </div>
+    </section>
+</body>
+</html>

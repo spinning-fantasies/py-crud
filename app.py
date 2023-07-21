@@ -100,6 +100,36 @@ def delete_listing(listing_id):
 
     return redirect(url_for('index'))
 
+@app.route('/backoffice')
+def backoffice():
+    connection = get_db()
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM listings WHERE deleted = 1')
+    deleted_listings = cursor.fetchall()
+    connection.close()
+
+    return render_template('backoffice.html', listings=deleted_listings)
+
+@app.route('/restore_listing/<int:listing_id>', methods=['POST'])
+def restore_listing(listing_id):
+    connection = get_db()
+    cursor = connection.cursor()
+    cursor.execute('UPDATE listings SET deleted = 0 WHERE id = ?', (listing_id,))
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for('backoffice'))
+
+@app.route('/permanently_delete_listing/<int:listing_id>', methods=['POST'])
+def permanently_delete_listing(listing_id):
+    connection = get_db()
+    cursor = connection.cursor()
+    cursor.execute('DELETE FROM listings WHERE id = ?', (listing_id,))
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for('backoffice'))
+
 
 if __name__ == '__main__':
     if not os.path.exists(DATABASE):

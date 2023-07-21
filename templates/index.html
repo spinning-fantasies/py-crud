@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 </head>
 <body>
+
+
+
+
     <section class="section">
         <div class="container">
             <h1 class="title">Property Listings</h1>
@@ -23,11 +27,13 @@
                             <button class="button is-danger" type="submit">Delete</button>
                         </form>
                         <a class="button is-primary" href="{{ url_for('edit_listing', listing_id=listing[0]) }}">Edit Listing</a>
+                        
                     </div>
                 </li>
                 {% endfor %}
             </ul>
             <a class="button is-primary" href="{{ url_for('create_listing') }}">Create New Listing</a>
+            <a class="button is-primary" href="{{ url_for('backoffice') }}">Backoffice</a>
         </div>
     </section>
 </body>
